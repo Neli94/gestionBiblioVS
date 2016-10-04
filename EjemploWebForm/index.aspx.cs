@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 using System.Data;
 
 namespace EjemploWebForm
-{
+{ 
     public partial class index : System.Web.UI.Page
     {
         DataTable dt;
