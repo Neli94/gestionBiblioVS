@@ -44,16 +44,66 @@ namespace EjemploWebForm
         protected void grdv_Usuarios_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             string comand = e.CommandName;
+            int index = Convert.ToInt32(e.CommandArgument);
             //int codigo = 
             switch (comand)
             {
                 case "editUsuario":
                     //hemos pulsado el boton de editar;
+                    /*
+                     {
+                     lblIdUsuario.Text=codigo;
+                     System.Text.StringBuilder sb= new System.Text.StringBuilder();
+                     sb.Append(@"<script>");
+                     sb.Append("$('#editModal').modal('show')");
+                     sb.Append(@"</script>");
+                     }
+                     */
                     break;
                 case "deleteUsuario":
-                    //hemos pulsado el boton de borrar;
+                    string cadenaConexion= ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
+                    string codigo = grdv_Usuarios.DataKeys[index].Value.ToString();
+                    txtIdUsuario.Text = codigo;
+                    string SQL = "DELETE FROM usuarios WHERE codigoUsuario=" + codigo;
+                    System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                    sb.Append(@"<script>");
+                    sb.Append("$('#deleteConfirm').modal('show')");
+                    sb.Append(@"</script>");
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ConfirmarBorrado", sb.ToString(), false);
+                    SqlConnection conn = null;
+                    try
+                    {
+                        conn = new SqlConnection(cadenaConexion);
+                        conn.Open();
+                        SqlCommand sqlcmm = new SqlCommand(SQL);
+                        sqlcmm.Connection = conn;
+                        sqlcmm.CommandText = SQL;
+                        sqlcmm.CommandType = CommandType.Text;
+                        //sqlcmm.CommandType = CommandType.StoredProcedure;
+                        sqlcmm.ExecuteNonQuery();
+                        
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    } 
+
                     break;
             }
+        }
+
+        private void cancelDelete()
+        {
+
+        }
+
+        private  void deleteUsuario()
+        {
+
         }
     }
 }
