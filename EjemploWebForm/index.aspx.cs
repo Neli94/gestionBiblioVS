@@ -23,7 +23,7 @@ namespace EjemploWebForm
             try
             {
                 string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
-                string SQL = "SELECT * FROM usuarios";
+                string SQL = "SELECT * FROM usuario";
                 SqlConnection conn = new SqlConnection(cadenaConexion);
                 conn.Open();
                 DataSet ds = new DataSet();
@@ -56,14 +56,11 @@ namespace EjemploWebForm
                         sb.Append(@"<script>");
                         sb.Append("$('#editModal').modal('show')");
                         sb.Append(@"</script>");
-
-
                     }
                     break;
 
                 case "deleteUsuario":
                     {
-
                         txtIdUsuario.Text = codigo;
                         System.Text.StringBuilder sb = new System.Text.StringBuilder();
                         sb.Append(@"<script>");
@@ -72,7 +69,6 @@ namespace EjemploWebForm
                         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ConfirmarBorrado", sb.ToString(), false);
                     }
                     break;
-
             }
         }
 
@@ -83,10 +79,10 @@ namespace EjemploWebForm
             string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
             int cod;
 
-            string SQL = "INSERT INTO usuarios(nombreUsuario) VALUES(" + nombre + ")";
+            string SQL = "INSERT INTO usuario(nombre) VALUES(" + nombre + ")";
             if (Int32.TryParse(codigo, out cod) && cod > -1)
             {
-                SQL = "UPDATE usuarios SET nombreUsuario = '" + nombre + "' WHERE codigoUsuario =" + codigo;
+                SQL = "UPDATE usuario SET nombreUsuario = '" + nombre + "' WHERE id =" + codigo;
             }
 
             SqlConnection conn = null;
@@ -123,7 +119,7 @@ namespace EjemploWebForm
             string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
 
             string codigo = txtIdUsuario.Text;
-            string SQL = "DELETE FROM usuarios WHERE codigoUsuario=" + codigo;
+            string SQL = "DELETE FROM usuario WHERE id=" + codigo;
             try
             {
                 conn = new SqlConnection(cadenaConexion);
