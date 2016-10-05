@@ -16,13 +16,15 @@
 </head>
 <body>
     <form id="form1" runat="server">
+    <asp:ScriptManager runat="server" ID="ScriptManager" />
+        
     <div>
         <asp:Menu ID="Menu1" runat="server">
             <Items>
                 <asp:MenuItem NavigateUrl="~/index.aspx" Text="Pagina principal" Value="Pagina principal"></asp:MenuItem>
             </Items>
         </asp:Menu>
-    
+    <asp:Button ID="btncrearUsuario" runat="server" Text="Crear Usuario"  OnClick="btncrearUsuario_Click"/>
         <asp:GridView DataKeyNames="codigoUsuario" OnRowCommand="grdv_Usuarios_RowCommand" ID="grdv_Usuarios" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False">
             <Columns>
                 <asp:ButtonField CommandName="editUsuario" Text="Editar" ControlStyle-CssClass="btn btn-info">
@@ -32,29 +34,52 @@
                     <ControlStyle CssClass="btn btn-danger" />
                  </asp:ButtonField>
                 <asp:BoundField DataField="codigoUsuario" Visible="False" />
+                <asp:BoundField DataField="nombreUsuario" HeaderText="Nombre Usuario" Visible="true" />
             </Columns>
         </asp:GridView>
-      
+         
+
+ <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">Formulario</h4>
+      </div>
+      <div class="modal-body">
+       <asp:Label runat="server" ID="lblIdUsuario" Visible="false" Text=""></asp:Label>
+        <asp:TextBox ID="txtNombreUsuario" runat="server" Text=""></asp:TextBox>
+      </div>
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>      
+        <asp:Button runat="server" OnClick="btnGuardarUsuario_Click"  id="btnGuardarUsuario" Text="Guardar" />
+      </div>
+  </div>
+</div>
+</div>
+    
         <div class="modal fade" id="deleteConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="">Borrar</h4>
-              </div>
-              <div class="modal-body">
-                ¿Está ud. seguro de que desea borrar?
-                <asp:TextBox ID="txtIdUsuario" runat="server" Enabled="false" Visible="false"/>
-                <asp:Button ID="btnCancelDelete" runat="server" OnClick="" Text="Cancelar" />
-                <asp:Button ID="btnDelete" runat="server" OnClick="" Text="Borrar" />
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Send message</button>
-              </div>
-            </div>
-          </div>
-        </div>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id=""></h4>
+      </div>
+      <div class="modal-body">
+          <asp:Label ID="lblMensaje" runat="server" Text="¿Esta usted seguro que desea borrar?"></asp:Label>
+         
+          <asp:TextBox ID="txtIdUsuario" runat="server" Enabled="false" Visible="false"></asp:TextBox>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <asp:Button ID="btnDelete" runat="server" OnClick="" Text="Borrar" />
+      </div>
+    </div>
+  </div>
+</div>
     </div>
     </form>
 </body>
