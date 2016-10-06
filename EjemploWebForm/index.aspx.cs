@@ -22,8 +22,8 @@ namespace EjemploWebForm
         {
             try
             {
-                string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
-                string SQL = "SELECT * FROM usuario";
+                string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIA"].ConnectionString;
+                string SQL = "SELECT id as codigoUsuario, nombre as nombreUsuario FROM usuario WHERE borrado=0";
                 SqlConnection conn = new SqlConnection(cadenaConexion);
                 conn.Open();
                 DataSet ds = new DataSet();
@@ -56,6 +56,8 @@ namespace EjemploWebForm
                         sb.Append(@"<script>");
                         sb.Append("$('#editModal').modal('show')");
                         sb.Append(@"</script>");
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ConfirmarEdit", sb.ToString(), false);
+                        cargaDatos();
                     }
                     break;
 
@@ -67,6 +69,7 @@ namespace EjemploWebForm
                         sb.Append("$('#deleteConfirm').modal('show')");
                         sb.Append(@"</script>");
                         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "ConfirmarBorrado", sb.ToString(), false);
+                        cargaDatos();
                     }
                     break;
             }
@@ -76,7 +79,7 @@ namespace EjemploWebForm
         {
             string codigo = lblIdUsuario.Text;
             string nombre = txtNombreUsuario.Text;
-            string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
+            string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIA"].ConnectionString;
             int cod;
 
             string SQL = "INSERT INTO usuario(nombre) VALUES(" + nombre + ")";
@@ -116,10 +119,10 @@ namespace EjemploWebForm
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             SqlConnection conn = null;
-            string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIAConnectionString"].ConnectionString;
+            string cadenaConexion = ConfigurationManager.ConnectionStrings["GESTLIBRERIA"].ConnectionString;
 
             string codigo = txtIdUsuario.Text;
-            string SQL = "DELETE FROM usuario WHERE id=" + codigo;
+            string SQL = "UPDATE usuario SET borrado=1";
             try
             {
                 conn = new SqlConnection(cadenaConexion);
