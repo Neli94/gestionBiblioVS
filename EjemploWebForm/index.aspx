@@ -25,17 +25,19 @@
             </asp:Menu>
             <asp:UpdatePanel ID="upCrudGrid" runat="server">
                 <ContentTemplate>
-                        <asp:Button ID="btncrearUsuario" runat="server" Text="Crear Usuario"  OnClick="btncrearUsuario_Click"/>
+                    <asp:Button ID="btncrearUsuario" runat="server" Text="Crear Usuario"  OnClick="btncrearUsuario_Click"/>
                     <asp:GridView DataKeyNames="codigoUsuario" OnRowCommand="grdv_Usuarios_RowCommand" ID="grdv_Usuarios" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False">
                         <Columns>
                             <asp:ButtonField CommandName="editUsuario" Text="Editar" ControlStyle-CssClass="btn btn-info">
                                 <ControlStyle CssClass="btn btn-info" />
-                                </asp:ButtonField>
+                            </asp:ButtonField>
                             <asp:ButtonField CommandName="deleteUsuario" Text="Borrar" ControlStyle-CssClass="btn btn-danger">
                                 <ControlStyle CssClass="btn btn-danger" />
-                                </asp:ButtonField>
+                            </asp:ButtonField>
                             <asp:BoundField DataField="codigoUsuario" Visible="False" />
                             <asp:BoundField DataField="nombreUsuario" HeaderText="Nombre Usuario" Visible="true" />
+                            <asp:BoundField DataField="apellidosUsuario" HeaderText="Apellidos" Visible="true" />
+                            <asp:BoundField DataField="emailUsuario" HeaderText="Email" Visible="true" />
                         </Columns>
                     </asp:GridView>
                 </ContentTemplate>
@@ -50,7 +52,26 @@
                         </div>
                         <div class="modal-body">
                             <asp:Label runat="server" ID="lblIdUsuario" Visible="false"></asp:Label>
-                            <asp:TextBox ID="txtNombreUsuario" runat="server" Text="Nombre"></asp:TextBox>
+                            <div class="form-group">
+                                        <asp:Label runat="server" ID="lblNombre" Visible="true" Text="Nombre:"></asp:Label>
+                                        <asp:TextBox ID="txtNombreUsuario" runat="server" Text="" CssClass="form-control"></asp:TextBox>
+                                    </div>
+                                    <div class="form-group">
+                                        <asp:Label runat="server" ID="lblApellidos" Visible="true" Text="Apellidos:"></asp:Label>
+                                        <asp:TextBox ID="txtApellidos" runat="server" Text="" CssClass="form-control"></asp:TextBox>
+                                    </div>
+                                    <div class="form-group">
+                                        <asp:Label runat="server" ID="lblNick" Visible="true" Text="NickName:"></asp:Label>
+                                        <asp:TextBox ID="txtAlias" runat="server" Text="" CssClass="form-control"></asp:TextBox>
+                                    </div>
+                                    <div class="form-group">
+                                        <asp:Label runat="server" ID="lblfNacimiento" Visible="true" Text="Fecha de Nacimiento:"></asp:Label>
+                                        <asp:TextBox ID="txtfNacimiento" runat="server" Text="" CssClass="form-control"></asp:TextBox>
+                                    </div>
+                                    <div class="form-group">
+                                        <asp:Label runat="server" ID="lblPassword" Visible="true" Text="Contraseña:"></asp:Label>
+                                        <asp:TextBox ID="txtPassword" runat="server" Text="" CssClass="form-control"></asp:TextBox>
+                                    </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>      
@@ -80,5 +101,6 @@
             </div>
         </div>
     </form>
+
 </body>
 </html>
